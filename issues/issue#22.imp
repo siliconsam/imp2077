@@ -1,0 +1,6 @@
+%begin
+%real r
+%longreal lr
+r = -2147483648
+lr = -2147483648
+%endofprogram

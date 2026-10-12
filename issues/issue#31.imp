@@ -1,0 +1,9 @@
+%begin
+  %switch lab(0:1)
+  %integer fred
+
+  lab(1):    fred=8
+
+  lab(2):    fred=9        { After a range error, the next letter is seen to be capitalised!  Giving an erroneous follow-on error }
+
+%endofprogram

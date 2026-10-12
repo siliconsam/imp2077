@@ -1,0 +1,2 @@
+%externalroutinespec fred(%routine fred2(%byteinteger param2))
+%endoffile

@@ -1,0 +1,25 @@
+%begin
+
+   %on %event 15 %start
+     print string("END OF DIAGNOSTICS"); newline
+     %stop
+   %finish
+
+   %routine the procedure(%integer i)
+     %integer local variable
+     local variable = i
+
+     %on %event 15 %start
+       print string("Entered from THEPROCEDURE "); write(i, -1); newlines(2)
+       print string("LOCALVARIABLE = "); write(local variable, 0); newline
+       ! For comparative testing: Vax compiler needs event_extra not event_info
+       %signal 15, event_sub, event_info  { pass up one level to caller }
+     %finish
+
+     %signal 15, 1 %if i >= 10
+     the procedure(i+3)
+   %end
+
+   the procedure(1)
+
+%endofprogram

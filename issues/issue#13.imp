@@ -1,0 +1,11 @@
+%begin
+  %own %integer %array negarray(-1:1) = 42, 1234567, 17
+  %const %short %integer %array index(0:1) = 0, -1
+  %integer i
+
+  i = 1
+
+  write(negarray(index(i)), 4);   ! Should be negarray(index(1)) which is negarray(-1) which is 42.
+  newline
+
+%endofprogram

@@ -1,0 +1,9 @@
+%begin
+  %routine zero(%integer i)
+    %if i==0 %start
+    %finish
+  %end
+
+  zerol(1)
+
+%endofprogram

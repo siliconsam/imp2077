@@ -1,0 +1,10 @@
+%begin
+  %integer i
+  %real r
+  Printstring("Testing prompt.  Enter an integer and a real value on the same line."); Newline
+  Prompt("Integer: "); read(i)
+  Prompt("Real: "); read(r)
+  printstring("Integer was "); write(i, -1)
+  printstring(", real was "); printfl(r, 4)
+  newline
+%endofprogram

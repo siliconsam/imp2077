@@ -1,0 +1,49 @@
+%record %format Stack Fm ( %integer a, b, c, Flags,
+                           %record(Stack Fm) %name Using )
+%const %integer DASL Flag = 1<<0
+
+%const %record(Stack Fm) %name Stack Fm Type == 0
+%own %record(Stack Fm) %name Stack == 0, Using == 0, Dasl == 0
+
+%own %integer Descriptors Allocated = 0,
+              Descriptors Used = 0
+
+%routine Fail ( %string(255) S )
+   Print String(S);  Newline
+   %stop
+%end
+
+%external %integer %fn Pass2
+
+   %record(Stackfm)%map Descriptor
+      %record(Stackfm)%name V
+      %if Dasl == Nil %start                   {empty, grab some from the heap}
+
+         Print String("Entered Descriptor, DASL==")
+         Write(Addr(Dasl), 0)
+         Print String(", allocate from heap");  Newline
+
+         Dasl == NEW(Stackfm Type)
+         Dasl_Using == Nil
+         Descriptors Allocated = Descriptors Allocated + 1
+      %else {check next free descriptor on DASL marked as free OK}
+         Fail("P2/72") %if Dasl_Flags & DASL Flag = 0
+         Print String("Re-using ");  Write(Addr(Dasl), 0);  Newline
+      %finish
+      Descriptors Used = Descriptors Used + 1
+      V == Dasl;  Dasl == V_Using
+      V = 0
+      V_Using == Using;  Using == V
+      %result == V
+   %end
+
+   %record(Stack Fm) %name V
+   Print String("About to call Descriptor");  Newline
+   V == Descriptor
+   %result = 0
+%end
+
+%begin
+   %integer Res
+   Res = Pass2
+%endofprogram

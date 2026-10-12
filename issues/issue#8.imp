@@ -1,0 +1,27 @@
+! check that sizeof/typeof was giving the expected value
+%begin
+  %routine test(%name param)         ;! ia1          ia2
+    write(addr(param),0)  ; newline  ;! 2145833816   2145833816
+    write(sizeof(param),0); newline  ;! 1            8             1 is sizeof %byte, 8 is sizeof %longreal
+    write(typeof(param),0); newline  ;! 5            8             5 is typeof %byte, 8 is typeof %longreal
+  %end
+
+  %bytearray ia1(3:5)
+  %longrealarray ia2(2:4,3:6)
+
+  printstring( "Testing ia1"); newline
+  write(addr(ia1),0); newline     ;! 2145833816
+  write(addr(ia1(3)),0); newline  ;! 2145833704
+  write(sizeof(ia1),0); newline   ;! 1                sizeof %byte
+  write(typeof(ia1),0); newline   ;! 5                typeof %byte
+  test(ia1)
+
+  printstring( "Testing ia2"); newline
+  write(addr(ia2),0); newline      ;! 2145833816
+  write(addr(ia2(2,3)),0); newline ;! 2145833708      4 bytes after address of first element of ia1, i.e. ia1(3)
+                                    !                 which is 3 %byteinteger elements of 1 byte each, aligned to next 4 bytes.
+  write(sizeof(ia2),0); newline    ;! 8               sizeof %longreal
+  write(typeof(ia2),0); newline    ;! 8               typeof %longreal
+  test(ia2)
+
+%endofprogram

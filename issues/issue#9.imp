@@ -1,0 +1,5 @@
+%begin
+%integer i
+%include "test/i-test.i"
+i = 4
+%endofprogram

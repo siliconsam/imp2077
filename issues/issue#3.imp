@@ -1,0 +1,8 @@
+%begin
+    %integer fred, jim, i
+    %for fred = 1, 10, jim %cycle
+        %if i = 55 %then %continue
+        %if i = 99 %then %exit
+        i = i+1
+    %repeat
+%endofprogram

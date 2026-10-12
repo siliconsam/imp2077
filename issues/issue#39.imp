@@ -1,0 +1,19 @@
+%external %integer %function %spec random %alias "rand"
+%begin
+%integer n,p,q,r
+
+n = random
+
+p = n
+q = 13
+
+p = p - q*(p // q)
+
+r = rem( n, q)
+printstring("Random=");write(n,0)
+printstring(" mod "); write(q,0)
+printstring(" = "); write(p,0)
+printstring(" rem =");write(r,0)
+newline
+
+%end %of %program

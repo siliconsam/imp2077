@@ -1,0 +1,11 @@
+%begin
+    %string(13) s = "AbC"
+    %integer x
+    
+    x = length(s)
+    write(x,0); newline
+    
+    x = charno(s,2)
+    printsymbol(x); newline
+
+%endofprogram

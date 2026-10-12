@@ -1,0 +1,158 @@
+! Crashes with sigsegv at runtime under imp2026 on first call to NAMEOF()
+
+
+! Program to check that sizeof/typeof is giving the expected value.
+! Note that %<whatever>%name variables return the size and type
+! of the variables they point to, which may be what Imp77 expects
+! but its not well documented so I can't be sure.
+
+%begin
+
+  ! %NAME parameters not yet handled.  Needs help from the compiler
+  ! to construct a C struct containing the type and size info for
+  ! the associated pointer.
+
+  %string(32) %fn nameof(%integer typecode)
+    ! 0:15 range compatible with standard Imp77, 16:31 is i2c extension being considered...
+    %const %string (32) %array desc(0:31) = %c
+      "unknown",            "integer",            "real",               "string",
+      "record",             "byte integer",       "short integer",      "long integer",
+      "long real",          "array",              "label",              "unknown",
+      "unknown",            "unknown",            "unknown",            "unknown",
+      ! added:
+      "name",               "integername",        "real name",          "string name",
+      "record name",        "byte integer name",  "short integer name", "long integer name",
+      "long real name",     "array name",         "label name",         "unknown name",
+      "unknown name",       "unknown name",       "unknown name",       "unknown name"
+
+   typecode = 0 %unless 0 <= typecode <= 31
+   %result = desc(typecode)
+  %end
+
+  %routine test(%name param)
+    printstring("(passed as a %name)"); newline
+    printstring("Size: "); write(sizeof(param),0); newline
+    printstring("Type: "); printstring(nameof(typeof(param)))
+    printstring(" ("); write(typeof(param),-1); printstring(")")
+    newline
+  %end
+
+  %byte b
+  %short s
+  %integer i
+  %longinteger li
+  %real r
+  %longreal l
+
+  %bytearray ia1(3:5)
+  %longrealarray ia2(2:4,3:6)
+
+  %recordformat wreck fm (%integer p,q,r,s,t)
+  %record (wreck fm) w
+
+  %string (128) st
+
+  %name nn
+
+  %bytename bn
+  %shortname sn
+  %integername in
+  %longintegername lin
+  %realname rn
+  %longrealname ln
+
+  %bytearrayname ia1n
+  %longrealarrayname ia2n
+
+  %record (wreck fm) %name wn
+
+  %string (*) %name stn
+
+  !%label lab
+
+  newline; printstring( "Testing %byte b"); newline
+  printstring("Size: "); write(sizeof(b),-1); newline   ;!                 sizeof %byte
+  printstring("Type: "); printstring(nameof(typeof(b)));   printstring(" ("); write(typeof(b),-1); printstring(")"); newline;    ;!     typeof %byte
+
+  newline; printstring( "Testing %short s"); newline
+  printstring("Size: "); write(sizeof(s),-1); newline   ;!                 sizeof %short
+  printstring("Type: "); printstring(nameof(typeof(s)));   printstring(" ("); write(typeof(s),-1); printstring(")"); newline;    ;!     typeof %short
+
+  newline; printstring( "Testing %integer i"); newline
+  printstring("Size: "); write(sizeof(i),-1); newline   ;!                 sizeof %integer
+  printstring("Type: "); printstring(nameof(typeof(i)));   printstring(" ("); write(typeof(i),-1); printstring(")"); newline;    ;!     typeof %integer
+
+  newline; printstring( "Testing %longinteger li"); newline
+  printstring("Size: "); write(sizeof(li),-1); newline   ;!                sizeof %longinteger
+  printstring("Type: "); printstring(nameof(typeof(li)));   printstring(" ("); write(typeof(li),-1); printstring(")"); newline;    ;!    typeof %longinteger
+
+  newline; printstring( "Testing %real r"); newline
+  printstring("Size: "); write(sizeof(r),-1); newline   ;!                 sizeof %real
+  printstring("Type: "); printstring(nameof(typeof(r)));   printstring(" ("); write(typeof(r),-1); printstring(")"); newline;    ;!     typeof %real
+
+  newline; printstring( "Testing %longreal l"); newline
+  printstring("Size: "); write(sizeof(l),-1); newline   ;!                 sizeof %longreal
+  printstring("Type: "); printstring(nameof(typeof(l)));   printstring(" ("); write(typeof(l),-1); printstring(")"); newline;    ;!     typeof %longreal
+
+  newline; printstring( "Testing %string(128) st"); newline
+  printstring("Size: "); write(sizeof(st),-1); newline   ;!                sizeof %string(128)
+  printstring("Type: "); printstring(nameof(typeof(st)));   printstring(" ("); write(typeof(st),-1); printstring(")"); newline;    ;!    typeof %string(128)
+
+  newline; printstring( "Testing %record w"); newline
+  printstring("Size: "); write(sizeof(w),-1); newline   ;!                 sizeof %record
+  printstring("Type: "); printstring(nameof(typeof(w)));   printstring(" ("); write(typeof(w),-1); printstring(")"); newline;    ;!     typeof %record
+
+  newline; printstring( "Testing %name nn"); newline
+  printstring("Size: "); write(sizeof(nn),-1); newline   ;!                sizeof %name
+  printstring("Type: "); printstring(nameof(typeof(nn)));   printstring(" ("); write(typeof(nn),-1); printstring(")"); newline;    ;!    typeof %name
+
+  !newline; printstring( "Testing %label lab"); newline
+  !printstring("Size: "); write(sizeof(lab),-1); newline   ;!              sizeof %label
+  !printstring("Type: "); printstring(nameof(typeof(lab)));   printstring(" ("); write(typeof(lab),-1); printstring(")"); newline;    ;!  typeof %label
+
+!lab:
+
+  newline; printstring( "Testing %bytename bn"); newline
+  printstring("Size: "); write(sizeof(bn),-1); newline   ;!                sizeof %bytename
+  printstring("Type: "); printstring(nameof(typeof(bn)));   printstring(" ("); write(typeof(bn),-1); printstring(")"); newline;    ;!    typeof %bytename
+
+  newline; printstring( "Testing %shortname sn"); newline
+  printstring("Size: "); write(sizeof(sn),-1); newline   ;!                sizeof %shortname
+  printstring("Type: "); printstring(nameof(typeof(sn)));   printstring(" ("); write(typeof(sn),-1); printstring(")"); newline;    ;!    typeof %shortname
+
+  newline; printstring( "Testing %integername in"); newline
+  printstring("Size: "); write(sizeof(in),-1); newline   ;!                sizeof %integername
+  printstring("Type: "); printstring(nameof(typeof(in)));   printstring(" ("); write(typeof(in),-1); printstring(")"); newline;    ;!    typeof %integername
+
+  newline; printstring( "Testing %longintegername lin"); newline
+  printstring("Size: "); write(sizeof(lin),-1); newline   ;!               sizeof %longintegername
+  printstring("Type: "); printstring(nameof(typeof(lin)));   printstring(" ("); write(typeof(lin),-1); printstring(")"); newline;    ;!   typeof %longintegername
+
+  newline; printstring( "Testing %realname rn"); newline
+  printstring("Size: "); write(sizeof(rn),-1); newline   ;!                sizeof %realname
+  printstring("Type: "); printstring(nameof(typeof(rn)));   printstring(" ("); write(typeof(rn),-1); printstring(")"); newline;    ;!    typeof %realname
+
+  newline; printstring( "Testing %longrealname ln"); newline
+  printstring("Size: "); write(sizeof(ln),-1); newline   ;!                sizeof %longrealname
+  printstring("Type: "); printstring(nameof(typeof(ln)));   printstring(" ("); write(typeof(ln),-1); printstring(")"); newline;    ;!    typeof %longrealname
+
+  newline; printstring( "Testing %string(*)%name stn"); newline
+  printstring("Size: "); write(sizeof(stn),-1); newline   ;!               sizeof %string(*)%name
+  printstring("Type: "); printstring(nameof(typeof(stn)));   printstring(" ("); write(typeof(stn),-1); printstring(")"); newline;    ;!   typeof %string(*)%name
+
+  newline; printstring( "Testing %recordname wn"); newline
+  printstring("Size: "); write(sizeof(wn),-1); newline   ;!                sizeof %recordname
+  printstring("Type: "); printstring(nameof(typeof(wn)));   printstring(" ("); write(typeof(wn),-1); printstring(")"); newline;    ;!    typeof %recordname
+
+  ! i2c not giving correct results for arrays yet:
+  newline; printstring( "Testing %bytearray ia1(3:5)"); newline   ;!               which is 3 %byteinteger elements of 1 byte each, aligned to next 4 bytes.
+  printstring("Size: "); write(sizeof(ia1),-1); newline   ;!               sizeof %byte
+  printstring("Type: "); printstring(nameof(typeof(ia1)));   printstring(" ("); write(typeof(ia1),-1); printstring(")"); newline;    ;!   typeof %byte
+  test(ia1)
+
+  newline; printstring( "Testing %longrealarray ia2(2:4,3:6)"); newline
+  printstring("Size: "); write(sizeof(ia2),-1); newline    ;!              sizeof %longreal
+  printstring("Type: "); printstring(nameof(typeof(ia2)));   printstring(" ("); write(typeof(ia2),-1); printstring(")"); newline;     ;!  typeof %longreal
+  test(ia2)
+
+%endofprogram

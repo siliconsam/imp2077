@@ -1,0 +1,20 @@
+%begin
+  %constinteger TAB = 9
+  %integer a, b, c
+  ! create a tab-delimited data file:
+  open output(2, "temp.txt")
+  select output(2)
+  {by the way PRINT CH is missing from the perms}
+  write(123, -1); print symbol(TAB); write (42, -1); print symbol(TAB); write(17, -1); newline
+  close output
+  select output(0)
+  open input(2, "temp.txt")
+  select input(2)
+  read(a)
+  read(b)
+  read(c)
+  print string("Total = "); write(a+b+c, -1); newline
+%endofprogram
+
+{ TEMP.TXT }
+123	42	17

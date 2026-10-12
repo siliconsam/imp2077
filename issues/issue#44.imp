@@ -1,0 +1,25 @@
+%recordformat Stack Fm ( %byte Form )
+
+%routine Fail ( %string(255) S )
+    Print String("Fail: ")
+    Print String(S)
+    %stop
+%end
+
+%externalroutine Pass2
+    %ownrecord(Stack Fm) %name Stack == 0
+
+    %routine Assemble
+
+        %routine Unary ( %string(2) Op )
+            %record(Stack Fm) %name X == Stack
+            Fail("Unary Op") %if "-" # Op # "" %and Op # "|"
+        %end
+
+        Unary("~")
+    %end
+
+    Assemble
+%end
+
+%endoffile

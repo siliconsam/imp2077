@@ -1,0 +1,10 @@
+%begin
+
+%on %event 9 %start
+print string("Cannot open file"); newline
+%stop
+%finish
+
+open input(1, "non-existent-file.txt");
+
+%endofprogram

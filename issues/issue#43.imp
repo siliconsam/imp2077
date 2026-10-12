@@ -1,0 +1,16 @@
+{ These 2 assignments detect string overflow in pass2 }
+%const %string (8) broken = "1234"."56789"
+%external %string (8) broken1 = "1234"."56789"
+
+{ define small constant strings }
+%const %string(8) part1 = "1234"
+%const %string(8) part2 = "456789"
+
+{ The following 2 assignments fail "form" because they assign concatenated variables }
+{ They fail in pass1 }
+{ The assignments in lines 2,3 never checked since pass2 is not run }
+!%const %string(8) broken2 = part1.part2
+!%external %string(8) broken3 = part1.part2
+
+{ To validate code in lines 2,3 comment out lines 12, 13 }
+%endoffile

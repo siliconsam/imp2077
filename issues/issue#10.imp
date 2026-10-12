@@ -1,0 +1,48 @@
+%begin
+    %predicate almost equals(%real left, %real right)
+        %true %if left * 0.999999 <= right*1.0 <= left * 1.0000001
+        %true %if right * 0.999999 <= left*1.0 <= right * 1.0000001
+        %false
+    %end
+
+    %longreal l = 22/7
+    %longreal r = PI
+    printstring(f to s(l,10). " and ".f to s(r,10))
+    %if almost equals(l, r) %start
+        printstring(" are almost equal")
+
+        spaces(4)
+        print real(l*0.999999,10,10)
+        spaces(4)
+        print real(r,10,10)
+        spaces(4)
+        print real(l*1.0000001,10,10)
+
+        spaces(4)
+        print real(r*0.999999,10,10)
+        spaces(4)
+        print real(l,10,10)
+        spaces(4)
+        print real(r*1.0000001,10,10)
+
+    %finish %else %start
+        printstring(" are nowhere equal")
+
+        spaces(4)
+        print real(l*0.999999,10,10)
+        spaces(4)
+        print real(r,10,10)
+        spaces(4)
+        print real(l*1.0000001,10,10)
+
+        spaces(4)
+        print real(r*0.999999,10,10)
+        spaces(4)
+        print real(l,10,10)
+        spaces(4)
+        print real(r*1.0000001,10,10)
+
+    %finish
+    newline
+
+%endofprogram

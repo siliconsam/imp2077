@@ -1,0 +1,12 @@
+%begin
+  %routine zero(%integer i)
+    %if i==0 %start
+        printstring("i has address $FFFF");newline
+    %else
+        printstring("i has unknown address");newline
+    %finish
+  %end
+
+  zero(1)
+
+%endofprogram

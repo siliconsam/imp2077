@@ -1,0 +1,9 @@
+%begin
+
+  %integername fredp
+  %integerarray fred(0:1)
+
+  fredp == fred(0)
+  fredp++1 = 1234
+
+%endofprogram

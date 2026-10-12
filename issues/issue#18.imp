@@ -1,0 +1,23 @@
+{ 1} %begin
+{ 2}   %string(255)s
+{ 3}   s = "left"."right"
+{ 4}   printstring(s); newline
+{ 5}   s <- "left"."right"
+{ 6}   printstring(s); newline
+{ 7}   s = "left"."middle"."right"
+{ 8}   printstring(s); newline
+{ 9}   s <- "left"."middle"."right"
+{10}   printstring(s); newline
+{11}   s = "left"."middle"."right"."more"
+{12}   printstring(s); newline
+{13}   s <- "left"."middle"."right"."more"
+{14}   printstring(s); newline
+{15}   s = "left"."middle"."right"."mores"
+{16}   printstring(s); newline
+{17}   s <- "left"."middle"."right"."mores"
+{18}   printstring(s); newline
+{19}   s = "left"."more"
+{20}   printstring(s); newline
+{21}   s <- "left"."more"
+{22}   printstring(s); newline
+{23} %endofprogram
