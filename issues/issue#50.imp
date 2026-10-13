@@ -1,0 +1,23 @@
+%begin
+
+  %recordformat RECFM (%integer I, J, K)
+
+  %begin
+
+    %routine SHOWREC(%record (RECFM) R)
+      print string("R_I = "); write(R_I, 0); newline
+    %end
+
+    %recordformat RECFM(%integer K, J, I)
+
+    %record (RECFM) %map FIRST
+      %own %record (RECFM) BEFORE
+      %result == BEFORE
+    %end
+
+    FIRST_I = 17; FIRST_K = 42;
+    SHOWREC(FIRST)
+
+  %end
+
+%endofprogram

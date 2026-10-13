@@ -1,0 +1,3 @@
+%begin
+   Print String(ItoS(-17, 0));  Newline
+%end %of %program

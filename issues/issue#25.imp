@@ -1,0 +1,16 @@
+! trivial example to show the problem
+
+%externalroutine my write(%integer n, p)
+  ! first capture the perms version
+  write(n, p)
+%end
+
+%externalroutine write(%integer n, p)
+  print string("Result is ")
+  my write(n, p)
+  newline
+%end
+
+%begin
+  write(123, 0)
+%endofprogram

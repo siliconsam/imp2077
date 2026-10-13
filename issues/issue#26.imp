@@ -1,0 +1,30 @@
+%begin
+
+  %routine hexl(%long %integer x)
+
+    %const %byte %integer %array hex(0:15) =
+      '0', '1', '2', '3', '4', '5', '6', '7',
+      '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    %long %integer digit
+    %integer shift
+
+    shift = sizeof(x)*8
+    %cycle
+      shift = shift - 4
+      digit = (x >> shift) & 15
+      print symbol(hex(digit))
+    %repeat %until shift = 0
+    newline
+  %end
+
+  %long %integer li
+
+  printstring("sizeof(li) = ")
+  write(sizeof(li), -1)
+  newline
+
+  li = 16_FEDCBA9876543210
+
+  hexl(li)
+
+%endofprogram

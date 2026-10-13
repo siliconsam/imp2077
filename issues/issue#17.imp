@@ -1,0 +1,92 @@
+%begin
+
+  %integer i
+  %recordformat rf(%record (rf) %name next, %integer i)
+
+  %record (rf) rec
+  %record (rf) %name recn
+  %record (rf) %array ra(0:10)
+  %record (rf) %name %array rna(0:10)
+  %record (rf) %name %array %name rnan
+  %record (rf) %map rm(%integer i);  %result == rec;  %end
+  %integer x
+
+  x = rec_i
+  x = rec_next_i
+  x = rec_next_next_i
+  recn == ra(i)
+  recn == ra(i)_next
+  recn == ra(i)_next_next
+  ra(i) = rec
+  ra(i)_i = i
+  ra(i)_next = rec
+  ra(i)_next = recn
+  ra(i)_next_i = i
+  ra(i)_next_next = rec
+  ra(i)_next_next = recn
+  ra(i)_next_next_i = i
+  x = ra(i)_i
+  x = ra(i)_next_i
+  x = ra(i)_next_next_i
+  recn == rec
+  x = recn_i
+  x = recn_next_i
+  x = recn_next_next_i
+  recn = rec
+  recn_i = i
+  recn_next = rec
+  recn_next_i = i
+  recn_next_next = rec
+  recn_next_next = recn
+  recn_next_next_i = i
+  recn == rna(i)
+  recn == rna(i)_next
+  recn == rna(i)_next_next
+  rec = rna(i)
+  rec = rna(i)_next
+  rec = rna(i)_next_next
+  x = rna(i)_i
+  x = rna(i)_next_i
+  x = rna(i)_next_next_i
+  rnan == rna
+  recn == rnan(i)
+  recn == rnan(i)_next
+  recn == rnan(i)_next
+  rec  = rnan(i)
+  rec  = rnan(i)_next
+  rec  = rnan(i)_next
+  x = rnan(i)_i
+  x = rnan(i)_next_i
+  x = rnan(i)_next_next_i
+  rnan(i)_i = x
+  rnan(i)_next = rec
+  rnan(i)_next == recn
+  rnan(i)_next_i = x
+  rnan(i)_next_next = rec
+  rnan(i)_next_next == recn
+  rnan(i)_next_next_i = x
+  recn == rm(i)
+  recn == rm(i)_next
+  recn == rm(i)_next_next
+  recn_i = rm(i)_i
+  recn_i = rm(i)_next_i
+  recn_i = rm(i)_next_next_i
+  rm(i) = rec
+  rm(i)_next = rec
+  rm(i)_next_i = x
+  rm(i)_next == recn
+  rm(i)_next_next = rec
+  rm(i)_next_next_i = x
+  rm(i)_next_next == recn
+  x = rm(i)_i
+  x = rm(i)_next_i
+  x = rm(i)_next_next_i
+  rm(i)_i = x
+  rm(i)_next = rec
+  rm(i)_next = recn
+  rm(i)_next_i = x
+  rm(i)_next_next = rec
+  rm(i)_next_next = recn
+  rm(i)_next_next_i = x
+%endofprogram
+

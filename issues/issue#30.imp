@@ -1,0 +1,3 @@
+%externalintegerarrayspec frank(0:4)
+%externalintegerarrayspec jim(0:1), sheila(0:3)
+%endoffile

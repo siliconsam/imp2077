@@ -1,0 +1,4 @@
+%integermap im
+  %integer i
+  %result == i
+%end

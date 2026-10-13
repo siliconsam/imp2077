@@ -1,0 +1,39 @@
+%record %format Global Fm ( %integer Blocks %or
+   %integer %array Pad(1:20) )
+
+%const %integer Max Vars = 16_0 FFFF
+
+%record %format Var Fm ( %integer a, b, c )
+
+%routine Fail ( %string(255) S )
+   Print String(S);  Newline
+   %stop
+%end
+
+%begin
+
+   %recordformat Varsfm(%record(Varfm)%array Var(0:255))
+   %constrecord(Varsfm)%name Varsfm Type == 0
+   %recordformat Varpfm(%record(Varsfm)%name P)
+   %record(Varpfm)%array Varp(0:Max Vars>>8)
+   
+   %record(Varfm)%map Var(%integer Index)
+      %own %record(Var Fm) Special Case Var
+      %result == Special Case Var %if Index = -1
+      Print String("Entered Var(");  Write(Index, 0)
+      Print Symbol(')');  Newline
+      Fail("P2/77") %unless 0 <= Index <= Max Vars
+      %record(Varpfm)%name V == Varp(Index>>8)
+      %if V_P == Nil %start
+         V_P == NEW(Varsfm Type)
+      %finish
+      %result == V_P_Var(Index&255)
+   %end
+
+   %integer J
+
+   VarP(J)_P == Nil %for J = 0, 1, Max Vars >>8
+   Var(0) = 0
+   Print String("Back from Var(0)");  Newline
+
+%end %of %program

@@ -1,0 +1,7 @@
+%begin
+  %long %real r1 = 0. 12345678
+  r1 = %c
+        .123456789
+  r1 = . %c
+        123456789
+%endofprogram

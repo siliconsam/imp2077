@@ -1,0 +1,21 @@
+%own %integer ATOM1=17
+
+%routine CODEATOM
+
+   %if ATOM1#0 %then ->i77L231
+      ATOM1=19
+      %return
+   i77L231:
+
+   !Atom1 = \Atom1;  Atom1 = \Atom1
+   %return
+
+   Print String("Error!");  Newline;  %stop
+%end
+
+%begin
+   Print String("About to call Code Atom");  Newline
+   Code Atom
+   Print String("atom1=");  Write(Atom1, 0)
+   Newline
+%endofprogram

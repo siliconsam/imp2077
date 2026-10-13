@@ -1,0 +1,9 @@
+%record %format Include Fm ( %integer Depth )
+%own %record(Include Fm) %name Including
+
+%begin
+   Including == Record(0)
+   %if Including ## Nil %start
+      Print String("Wrong!");  Newline
+   %finish
+%end %of %program

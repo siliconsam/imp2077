@@ -1,0 +1,44 @@
+%begin
+
+! These two blocks are both valid and assign 0 to all fields of the record:
+
+%BEGIN
+  %RECORDFORMAT F(%INTEGER I,J,K)
+  %RECORD(F) R = 0
+  write(R_I, 0); newline
+  write(R_K, 0); newline
+%END
+
+%BEGIN
+  %RECORDFORMAT F(%INTEGER I,J,K)
+  %RECORD(F) R
+  R = 0
+  write(R_I, 0); newline
+  write(R_K, 0); newline
+%END
+
+
+! These two blocks should both be invalid, but the first compiles and runs, but
+! assigns all 0's to R.  It should fault the declaration with a "Size" error.
+! Note that it does fault correctly if declared as a plain %RECORD rather than
+! a %OWNRECORD !
+
+! The second (if not commented out) is correctly faulted with "Size" (only 0 is allowed).
+
+
+%BEGIN
+  %RECORDFORMAT F(%INTEGER I,J,K)
+  %OWNRECORD(F) R = 123
+  write(R_I, 0); newline
+  write(R_K, 0); newline
+%END
+
+%BEGIN
+  %RECORDFORMAT F(%INTEGER I,J,K)
+  %RECORD(F) R
+! R = 123
+! write(R_I, 0); newline
+! write(R_K, 0); newline
+%END
+
+%endofprogram
